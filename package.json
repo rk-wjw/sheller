@@ -1,0 +1,30 @@
+{
+  "name": "sheller",
+  "version": "0.0.1",
+  "description": "sheller",
+  "main": "./lib/sheller.js",
+  "scripts": {
+    "test": "mocha ./test"
+  },
+  "dependencies": {
+    "async": "*",
+    "grunt": "*",
+    "ssh2": "*"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RK-WJW/sheller"
+  },
+  "keywords": [
+    "sheller"
+  ],
+  "author": "RK-WJW",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RK-WJW/sheller/issues"
+  },
+  "homepage": "https://github.com/RK-WJW/sheller"
+}
