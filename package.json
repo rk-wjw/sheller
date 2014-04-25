@@ -1,6 +1,6 @@
 {
   "name": "sheller",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "sheller",
   "main": "./lib/sheller.js",
   "scripts": {
@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "async": "*",
-    "grunt": "*",
     "ssh2": "*"
   },
   "devDependencies": {
