@@ -1,6 +1,6 @@
 {
   "name": "sheller",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "sheller",
   "main": "./lib/sheller.js",
   "scripts": {
