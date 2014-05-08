@@ -1,7 +1,7 @@
 {
   "name": "sheller",
   "version": "0.0.3",
-  "description": "sheller",
+  "description": "sheller: Perform a series of local and remote commands",
   "main": "./lib/sheller.js",
   "scripts": {
     "test": "mocha ./test"
@@ -18,7 +18,12 @@
     "url": "https://github.com/RK-WJW/sheller"
   },
   "keywords": [
-    "sheller"
+    "sheller",
+    "shell",
+    "cmd",
+    "ssh",
+    "task",
+    "auto"
   ],
   "author": "RK-WJW",
   "license": "MIT",
