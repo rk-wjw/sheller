@@ -29,33 +29,33 @@ npm install sheller
         -   cfg [Object] 任务配置对象
         -   callback [Function] 回调函数，第一个参数为错误信息，第二个参数为命令任务结果数组    
     -   cfg格式：
-```javascript
-{
-    options:{},//参数配置，可选
-    task:[] //命令配置，具体参考下方例子
-}
-```
+    ```javascript
+    {
+        options:{},//参数配置，可选
+        task:[] //命令配置，具体参考下方例子
+    }
+    ```
 3.  `sheller.loadTasks` 加载任务配置
     -   参数：config [Object/String] json对象或配置文件路径字符串
     -   配置文件格式：
-```javascript
-module.exports = {
-    "options": {
-        //......
-    },
-    "task1": {
+    ```javascript
+    module.exports = {
         "options": {
             //......
         },
-        "task": [
+        "task1": {
+            "options": {
+                //......
+            },
+            "task": [
+                //......
+            ]    
+        },
+        "task2": {
             //......
-        ]    
-    },
-    "task2": {
-        //......
-    } 
-};
-```
+        } 
+    };
+    ```
 4.  `sheller.execTask` 执行已加载的任务
     -   参数：
         -   arr [Array] 需要执行的任务名数组，按指定数组顺序执行
@@ -65,14 +65,14 @@ module.exports = {
         -   name [String] 远程连接的名称（自定义），可为空
         -   cfg [Object] 远程机信息，包含地址、用户名及密码
     -   cfg格式：
-```javascript    
-{
-    "host" : "",//ip地址
-    "username" : "",//用户名
-    "password" : "",//密码
-    "workPath" : ""//执行路径，可选
-}
-```
+    ```javascript    
+    {
+        "host" : "",//ip地址
+        "username" : "",//用户名
+        "password" : "",//密码
+        "workPath" : ""//执行路径，可选
+    }
+    ```
     -   连接对象有两个方法：
         -   exec： 执行命令，参数command、callback
         -   close: 关闭连接
