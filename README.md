@@ -19,20 +19,25 @@ npm install sheller
 ---
 
 ### 文档
-1.  sheller.execLocal 执行本地命令的方法
-    参数：command [String] 命令字符串
-          cwd [String] 可选，当前路径
-          callback [Function] 可选，回调函数，第一个参数为错误信息，第二个参数为命令结果
-2.  sheller.execSingleTask 执行单个命令任务
-    参数：cfg [Object] 任务配置对象
-          callback [Function] 回调函数，第一个参数为错误信息，第二个参数为命令任务结果数组
-    cfg格式：{
-        options:{},//参数配置，可选
-        task:[] //命令配置，具体参考下方例子
-    }
-3.  sheller.loadTasks 加载任务配置
-    参数：config [Object/String] json对象或配置文件路径字符串
-    配置文件格式：
+1.  `sheller.execLocal` 执行本地命令的方法    
+    -   参数：
+        -   command [String] 命令字符串    
+        -   cwd [String] 可选，当前路径    
+        -   callback [Function] 可选，回调函数，第一个参数为错误信息，第二个参数为命令结果    
+2.  `sheller.execSingleTask` 执行单个命令任务    
+    -   参数：
+        -   cfg [Object] 任务配置对象
+        -   callback [Function] 回调函数，第一个参数为错误信息，第二个参数为命令任务结果数组    
+    -   cfg格式：
+```javascript
+{
+    options:{},//参数配置，可选
+    task:[] //命令配置，具体参考下方例子
+}
+```
+3.  `sheller.loadTasks` 加载任务配置
+    -   参数：config [Object/String] json对象或配置文件路径字符串
+    -   配置文件格式：
 ```javascript
 module.exports = {
     "options": {
@@ -51,22 +56,139 @@ module.exports = {
     } 
 };
 ```
-4.  sheller.execTask 执行已加载的任务
-    参数：arr [Array] 需要执行的任务名数组，按指定数组顺序执行
-          callback [Function] 回调函数，第一个参数为错误信息，第二个参数为命令任务结果数组
-5.  sheller.getssh 获得一个ssh远程的连接对象
-    参数：name [String] 远程连接的名称（自定义），可为空
-          cfg [Object] 远程机信息，包含地址、用户名及密码
-    cfg格式：{
-        "host" : ip地址
-        "username" : 用户名
-        "password" : 密码
-        "workPath" : 执行路径，可选
-    }
-    连接对象有两个方法：
-    exec： 执行命令，参数command、callback
-    close: 关闭连接
+4.  `sheller.execTask` 执行已加载的任务
+    -   参数：
+        -   arr [Array] 需要执行的任务名数组，按指定数组顺序执行
+        -   callback [Function] 回调函数，第一个参数为错误信息，第二个参数为命令任务结果数组
+5.  `sheller.getssh` 获得一个ssh远程的连接对象
+    -   参数：
+        -   name [String] 远程连接的名称（自定义），可为空
+        -   cfg [Object] 远程机信息，包含地址、用户名及密码
+    -   cfg格式：
+```javascript    
+{
+    "host" : ip地址
+    "username" : 用户名
+    "password" : 密码
+    "workPath" : 执行路径，可选
+}
+```
+    -   连接对象有两个方法：
+        -   exec： 执行命令，参数command、callback
+        -   close: 关闭连接
 
+---
+
+### Usage Examples
+```javascript
+var sheller = require('sheller');
+//执行本地命令
+sheller.execLocal("echo test", function (err, data){
+        if(err){
+            console.log(err);
+        }else{
+            console.log(data);//test
+        }
+    });
+//执行单个命令任务
+sheller.execSingleTask({
+        options: {
+            "testParam": "test"
+        },
+        task: [
+            {
+                command: "echo [%= testParam %]",
+                after: function (data){
+                    return data.replace(/(^\s+)|(\s+$)/, '');
+                }
+            }
+        ]
+    }, function (err, data){
+        if(err){
+            console.log(err);
+        }else{
+            console.log(data);//["test"]
+        }
+    });
+//加载配置文件
+sheller.loadTasks("./tasklist.js");
+//执行任务
+sheller.execTask(["task1"], function (err, data){
+        if(err){
+            console.log(err);
+        }else{
+            console.log(data);//result array
+        }
+    });
+```
+配置文件tasklist.js
+```javascript
+module.exports = {
+    "options": {
+        //本地命令执行路径
+        // "localWorkPath" : "E://workspace/sina_blog/",
+        //远程机
+        "rs110" : {
+            "host" : "100.100.100.110",
+            "username" : "test110",
+            "password" : "123456",
+            "workPath" : "/data1/nginx/htdocs/online"
+        },
+        "rs112" : {
+            "host" : "100.100.100.112",
+            "username" : "test112",
+            "password" : "123456"
+        },
+        "testParam": "test sheller"
+    },
+    "task1": {
+        "options": {
+            // "localWorkPath" : "E://workspace/",
+            name: "test options"
+        },
+        "task": [
+            {
+                "command": "echo test"
+            },{
+                "id": "test1",
+                "command": "echo test1"
+            },{
+                "command": "echo test2",
+                "after": function (data){
+                    return {
+                        data: data.replace(/(^\s+)|(\s+$)/, ''),
+                        status: 1
+                    };
+                }
+            },{
+                "command": function (prev){
+                    console.log(prev.status == 1);//true
+                    console.log(this.getResult("test1"));//test1
+                    console.log(this.getResult());//test
+                    console.log(this.getResult(2));//test2
+                    console.log(this.options.name);//test options
+                    console.log(this.task[0].command);//echo test                    
+                    console.log(this.task[0].ret);//test
+                    return "exit";
+                }
+            },{
+                command: "echo test end",//不会执行，因为上个命令exit退出了
+                remote: "rs110"
+            }
+        ]    
+    },
+    "task2": {
+        "options": {
+        
+        },
+        "task": [
+            {
+                "command": "cd"
+            }
+        ]
+    } 
+};
+```
 ---
 
 ### License
