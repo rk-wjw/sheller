@@ -67,10 +67,10 @@ module.exports = {
     -   cfg格式：
 ```javascript    
 {
-    "host" : ip地址
-    "username" : 用户名
-    "password" : 密码
-    "workPath" : 执行路径，可选
+    "host" : "",//ip地址
+    "username" : "",//用户名
+    "password" : "",//密码
+    "workPath" : ""/执行路径，可选
 }
 ```
     -   连接对象有两个方法：
