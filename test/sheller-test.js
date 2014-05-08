@@ -5,8 +5,8 @@ describe("sheller", function (){
     describe("#execLocal", function (){
         it("command `echo test` should return test", function (done){
             sheller.execLocal("echo test", function (err, data){
-                assert.ok(err);
-                assert.equal(data, "test");
+                assert.ok(!err);
+                assert.equal(data.replace(/(^\s+)|(\s+$)/,''), "test");
                 done();
             });
         });
