@@ -1,6 +1,6 @@
 {
   "name": "sheller",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "sheller: Perform a series of local and remote commands",
   "main": "./lib/sheller.js",
   "scripts": {
