@@ -37,6 +37,7 @@ npm install sheller
     ```
 3.  `sheller.loadTasks` 加载任务配置
     -   参数：config [Object/String] json对象或配置文件路径字符串
+              flag [Boolean] true/false 默认false merge/cover
     -   配置文件格式：
     ```javascript
     module.exports = {
@@ -76,6 +77,7 @@ npm install sheller
     -   连接对象有两个方法：
         -   exec： 执行命令，参数command、callback
         -   close: 关闭连接
+6. `sheller.clear` 清除当前已加载的任务和配置。
 
 ---
 
