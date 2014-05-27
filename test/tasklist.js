@@ -37,7 +37,7 @@ module.exports = {
                 }
             },{
                 "command": function (prev){
-                    console.log(prev.status == 1);//true
+                    console.log(prev.ret.status == 1);//true
                     console.log(this.getResult("test1"));//test1
                     console.log(this.getResult());//test
                     console.log(this.getResult(2));//test2
