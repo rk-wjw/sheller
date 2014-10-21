@@ -128,7 +128,7 @@ sheller.execTask(["task1"], function (err, data){
 module.exports = {
     "options": {
         //本地命令执行路径
-        // "localWorkPath" : "E://workspace/sina_blog/",
+        // "localWorkPath" : "E://workspace/",
         //远程机
         "rs110" : {
             "host" : "100.100.100.110",
