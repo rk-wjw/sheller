@@ -1,6 +1,7 @@
 # sheller
 [![Build Status](https://travis-ci.org/RK-WJW/sheller.svg?branch=master)](https://travis-ci.org/RK-WJW/sheller)
 [![依赖模块状态](https://david-dm.org/RK-WJW/grunt-shelltask.png)](http://david-dm.org/RK-WJW/grunt-shelltask)
+[![NPM Version](http://img.shields.io/npm/v/sheller.svg?style=flat)](https://www.npmjs.org/package/sheller)
 [![浏览数](https://sourcegraph.com/api/repos/github.com/RK-WJW/grunt-shelltask/counters/views.png?no-count)](https://sourcegraph.com/github.com/RK-WJW/grunt-shelltask)
 
 
