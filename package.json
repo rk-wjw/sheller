@@ -1,17 +1,17 @@
 {
   "name": "sheller",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "sheller: Perform a series of local and remote commands",
   "main": "./lib/sheller.js",
   "scripts": {
     "test": "mocha ./test"
   },
   "dependencies": {
-    "async": "*",
-    "ssh2": "*"
+    "async": "0.7.x",
+    "ssh2": "0.2.x"
   },
   "devDependencies": {
-    "mocha": "*"
+    "mocha": "1.18.x"
   },
   "repository": {
     "type": "git",
